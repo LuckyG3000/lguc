@@ -148,7 +148,7 @@ class LGUtilityCounterCard extends HTMLElement {
 			}
 
 			.lg-utility-counter-digit-text {
-				background-image: linear-gradient(rgba(0,0,0,0), rgb(220,220,220), #606060);
+				background-image: linear-gradient(rgba(64,64,64,1), rgb(255,255,255), rgba(64,64,64,1));
 				color: transparent;
 				background-clip: text;
 				height: 24px;
@@ -232,6 +232,8 @@ class LGUtilityCounterCard extends HTMLElement {
         //this._elements.value = card.querySelector(".tcvj-value")
 	
 		this._elements.digit = card.querySelectorAll(".lg-utility-counter-digit-text");
+		this._elements.redbg = card.querySelector(".lg-utility-counter-red-bg");
+		this._elements.greybg = card.querySelector(".lg-utility-counter-grey-bg");
     }
 
     doListen() {
@@ -264,8 +266,7 @@ class LGUtilityCounterCard extends HTMLElement {
             //this._elements.value.textContent = this.getState().state;
 
 			var total_digits = this._config.digits_number + this._config.decimals_number;
-			console.log("Total digits 1: " + total_digits);
-			
+		
 			var cntr_val = this.getState().state;
 			var cntr_str = String(Math.round(cntr_val * 100)).padStart(total_digits, '0');
 			var dig_val;
@@ -273,10 +274,13 @@ class LGUtilityCounterCard extends HTMLElement {
 			for (var d = 0; d < total_digits; d++) {
 				dig_val = cntr_str.substring(d, d + 1);
 				this._elements.digit[d].innerHTML = dig_val;
+				this._elements.digit[d].style.display = "block";
 			}
 			//hide the rest of digits
-			
-			
+			for (var d = total_digits; d < 15; d++) {
+				this._elements.digit[d].style.display = "none";
+			}
+			this._elements.redbg.style.left = 28 * this._config.digits_number;
             this._elements.error.classList.add("lguc-error--hidden");
             //this._elements.dl.classList.remove("lguc-dl--hidden");
         }
