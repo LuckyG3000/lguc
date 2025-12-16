@@ -294,13 +294,16 @@ class LGUtilityCounterCard extends HTMLElement {
 	static getConfigForm() {
     return {
       schema: [
-        { name: "label", selector: { label: {} } },
         { name: "entity", required: true, selector: { entity: {} } },
         {
           type: "grid",
           name: "",
           schema: [
             { name: "name", selector: { text: {} } },
+			{ name: "digits_number", selector: { number: {
+				min: 0,
+				max: 10
+			} } },
             {
               name: "icon",
               selector: {
@@ -310,18 +313,8 @@ class LGUtilityCounterCard extends HTMLElement {
                 icon_entity: "entity",
               },
             },
-            {
-              name: "attribute",
-              selector: {
-                attribute: {},
-              },
-              context: {
-                filter_entity: "entity",
-              },
-            },
             { name: "unit", selector: { text: {} } },
             { name: "theme", selector: { theme: {} } },
-            { name: "state_color", selector: { boolean: {} } },
           ],
         },
       ],
