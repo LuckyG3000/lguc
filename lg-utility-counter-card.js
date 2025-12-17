@@ -286,8 +286,8 @@ class LGUtilityCounterCard extends HTMLElement {
 				r_str = "0";
 			}
 			
-			var digits_left = 0;
-			var digits_right = 5;
+			var digits_left = this._config.digits_number;
+			var digits_right = this._config.decimals_number;
 			
 			if (digits_left == 0) {	//auto
 				digits_left = l_str.length;
