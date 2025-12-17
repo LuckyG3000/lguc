@@ -275,31 +275,44 @@ class LGUtilityCounterCard extends HTMLElement {
 			if (isNumeric(this._config.offset)) {
 				cntr_val += parseFloat(this._config.offset);
 			}
-			var digits_left = this._config.digits_number;
-			var digits_right = this._config.decimals_number;
 
+			var l_str;
+			var r_str;
+			if (String(cntr_val).indexOf(".") > 0) {
+				l_str = String(cntr_val).split(".")[0];
+				r_str = String(cntr_val).split(".")[1];
+			} else {
+				l_str = String(cntr_val);
+				r_str = "0";
+			}
+			
+			var digits_left = 0;
+			var digits_right = 5;
+			
 			if (digits_left == 0) {	//auto
-				digits_left = String(parseInt(cntr_val)).length;
+				digits_left = l_str.length;
 				if (digits_left > 10) {digits_left = 10;}
 			}
 
 			if (digits_right == 0) {	//auto
-				var tmp_str = String(cntr_val - parseInt(cntr_val)).slice(2, 2 + 5);
-				
-				while (tmp_str.slice(-1) == "0") {
-					tmp_str = tmp_str.slice(0, -1);
+				digits_right = r_str.length;
+				if (digits_right > 5) {
+					digits_right = 5;
+					r_str = r_str.slice(0, 5);
 				}
-				digits_right = tmp_str.length;
-				if (digits_right > 5) {digits_right = 5;}
 			}
 			
 			var total_digits = digits_left + digits_right;
 			
-			var cntr_str_left = String(parseInt(cntr_val)).padStart(digits_left, '0');	//add leading zeros
-			cntr_str_left = cntr_str_left.slice(-digits_left);		// cut the beginning of the string if it's longer than required number of digits
-			var cntr_str_right = String(cntr_val - parseInt(cntr_val)).slice(2, 2 + digits_right).padEnd(digits_right, '0');
+			l_str = l_str.padStart(digits_left, '0');	//add leading zeros
+			l_str = l_str.slice(-digits_left);		// cut the beginning of the string if it's longer than required number of digits
+			r_str = r_str.padEnd(digits_right, '0');
+
+			if (r_str.length > digits_right) {	//do rounding
+			  r_str = String(Math.round(parseInt(r_str) / Math.pow(10, r_str.length - digits_right)));
+			}
 			
-			var cntr_str = cntr_str_left + cntr_str_right;
+			var cntr_str = l_str + r_str;
 			var dig_val;
 			
 			for (var d = 0; d < total_digits; d++) {
