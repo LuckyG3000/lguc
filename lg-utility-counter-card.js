@@ -340,6 +340,7 @@ class LGUtilityCounterCard extends HTMLElement {
 		if (schema.name === "unit") {
 			const unitOfMeasurement = getState().attributes.unit_of_measurement;
 			return unitOfMeasurement;
+		}
         return undefined;
 		
 		  
