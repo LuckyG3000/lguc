@@ -267,10 +267,19 @@ class LGUtilityCounterCard extends HTMLElement {
             }*/
             //this._elements.value.textContent = this.getState().state;
 
-			var total_digits = this._config.digits_number + this._config.decimals_number;
+			var total_digits_left = this._config.digits_number;
+			var total_digits_right = this._config.decimals_number;
+			var total_digits = total_digits_left + total_digits_right;
 		
 			var cntr_val = this.getState().state;
-			var cntr_str = String(Math.round(cntr_val * 100)).padStart(total_digits, '0');
+			//var cntr_str = String(Math.round(cntr_val * 100)).padStart(total_digits, '0');
+			var cntr_str_left = String(Math.round(cntr_val)).padStart(total_digits_left, '0');
+			cntr_str_left = cntr_str_left.substring(cntr_str_left.length - total_digits_left, total_digits_left);
+			var cntr_str_right = String(cntr_val - Math.round(cntr_val)).substring(2).padEnd(total_digits_right, '0'));
+			var cntr_str = cntr_str_left + cntr_str_right;
+			console.log(cntr_str_left);
+			console.log(cntr_str_right);
+			console.log(cntr_str);
 			var dig_val;
 			
 			for (var d = 0; d < total_digits; d++) {
