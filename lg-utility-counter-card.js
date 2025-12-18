@@ -186,7 +186,7 @@ class LGUtilityCounterCard extends HTMLElement {
 
 
 			.lg-utility-counter-grey-bg {
-				display: inline-block;
+				/*display: inline-block;*/
 				position: absolute;
 				top: 0;
 				/*width: 30px;*/
@@ -198,6 +198,14 @@ class LGUtilityCounterCard extends HTMLElement {
 				font-weight: bold;
 				font-family: Carlito, sans-serif;
 				/*left: 194px;*/
+			}
+
+			#lg-utility-counter-decimal-point {
+				position: absolute;
+				top: 20px;
+				font-size: 18px;
+				font-weight: bold;
+				font-family: Carlito, sans-serif;
 			}
        `
     }
@@ -214,7 +222,8 @@ class LGUtilityCounterCard extends HTMLElement {
 		for (var d = 0; d < 15; d++) {
 			html_content += `<span class="lg-utility-counter-digit-window">
 						<span class="lg-utility-counter-digit-text" id="lguc-digit-` + d + `">0</span>
-					</span>`;
+					</span>
+				<div id="lg-utility-counter-decimal-point"></div>`;
 		}
 		html_content += `
 				</div>
@@ -240,6 +249,8 @@ class LGUtilityCounterCard extends HTMLElement {
 		this._elements.digit = card.querySelectorAll(".lg-utility-counter-digit-text");
 		this._elements.redbg = card.querySelector(".lg-utility-counter-red-bg");
 		this._elements.greybg = card.querySelector(".lg-utility-counter-grey-bg");
+		this._elements.dp = card.querySelector(".lg-utility-counter-decimal-point");
+		
     }
 
     doListen() {
@@ -333,6 +344,18 @@ class LGUtilityCounterCard extends HTMLElement {
 				unitOfMeasurement = this._config.unit;
 			}
 			this._elements.greybg.innerHTML = unitOfMeasurement;
+
+			if  (this._config.unit == "0") {
+				this._elements.greybg.style.display = "none";
+			} else {
+				this._elements.greybg.style.display = "inline-block";
+			}
+
+			if  (this._config.decimal_separator == "Point") {
+				this._elements.dp.innerHTML = ".";
+			} else {
+				this._elements.dp.innerHTML = ",";
+			}
 			
             this._elements.error.classList.add("lguc-error--hidden");
             //this._elements.dl.classList.remove("lguc-dl--hidden");
@@ -357,6 +380,7 @@ class LGUtilityCounterCard extends HTMLElement {
         { name: "name", selector: { text: {} } },
 		{ name: "digits_number", selector: { number: { min: 0, max: 10, step: 1, mode: "slider" } } },
 		{ name: "decimals_number", selector: { number: { min: 0, max: 5, step: 1, mode: "slider" } } },
+		{ name: "decimal_separator", selector: { select: { mode: "list", options: {"Point", "Comma"} } } },
 		{ name: "offset", selector: { number: { step: "any", mode: "box" } } },
         {
             name: "icon",
