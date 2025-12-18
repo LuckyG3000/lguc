@@ -223,7 +223,7 @@ class LGUtilityCounterCard extends HTMLElement {
 			}
 
 			#lg-utility-counter-last-update {
-       `		display: nobe;
+       `		display: none;
 			}
     }
 
