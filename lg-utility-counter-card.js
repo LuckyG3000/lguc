@@ -131,11 +131,23 @@ class LGUtilityCounterCard extends HTMLElement {
                 margin: 0;
             }
 			.lg-utility-counter-main-div {
+				display: inline-block;
+				vertical-align: middle;
 				background-color: rgb(16, 16, 16);
 				height: 39px;
+				line-height: 39px;
 				width: 194px;
 				white-space: nowrap;
 				position: relative;
+			}
+
+			
+			.lg-utility-counter-icon-div {
+				display: inline-block;
+				vertical-align: middle;
+				height: 39px;
+				line-height: 39px;
+				margin-right: 8px;
 			}
 			
 			
@@ -218,7 +230,7 @@ class LGUtilityCounterCard extends HTMLElement {
 			<div class="card-content">
 				<p class="lguc-error lguc-error--hidden">
 				<br><br>
-				<div>
+				<div class="lg-utility-counter-icon-div">
 					<ha-icon icon="mdi:flash" id="lg-utility-counter-icon"></ha-icon>
 				</div>
 				<div class="lg-utility-counter-main-div">
