@@ -351,9 +351,9 @@ class LGUtilityCounterCard extends HTMLElement {
 
 			var ts = Math.floor(Date.now() / 1000);
 			var random_pos = false;
-			if (this._elements.lu < ts - 30) {
+			if (this._elements.lu.innerHTML < ts - 30) {
 				random_pos = true;
-				this._elements.lu = ts;
+				this._elements.lu.innerHTML = ts;
 			}
 				
 			for (var d = 0; d < total_digits; d++) {
