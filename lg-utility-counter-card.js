@@ -338,10 +338,10 @@ class LGUtilityCounterCard extends HTMLElement {
 			var random_pos = false;
 			if (this._elements.lu.innerHTML < ts - 60 || this._elements.lu.innerHTML == '') {
 				console.log(this._config.random_shift);
-				if (this._config.random_shift) {
+				if (this._config.random_shift == true || this._config.random_shift == 'true') {
 					random_pos = true;
+					this._elements.lu.innerHTML = ts;
 				}
-				this._elements.lu.innerHTML = ts;
 			}
 				
 			for (var d = 0; d < total_digits; d++) {
@@ -391,9 +391,7 @@ class LGUtilityCounterCard extends HTMLElement {
 			if (this._config.plate_color != undefined) {
 				var plate_rgb = this._config.plate_color;	//array with 3 elements
 				var rgb_css = "rgb(" + plate_rgb[0] + "," + plate_rgb[1] + ","+ plate_rgb[2] + ")";
-				console.log("RGB CSS: " + rgb_css);
 				this._elements.main_div.style.backgroundColor = rgb_css;
-				console.log(this._config.plate_color);
 			}
 			
             this._elements.error.classList.add("lguc-error--hidden");
