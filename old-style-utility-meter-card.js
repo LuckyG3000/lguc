@@ -439,7 +439,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 		{ name: "digit_color", selector: { text: {} } },
 		{ name: "digit_bg_color", selector: { text: {} } },
 		{ name: "icon_color", selector: { text: {} } },
-		{ name: "font_url", selector: { select: { mode: "dropdown", custom_value: true, options: ["Default", "Carlito"] } } },
+		{ name: "font_url", selector: { select: { mode: "dropdown", options: ["Default", "Carlito"] } } },
 		//{ name: "plate_color", disabled: true, selector: { color_rgb: {} } },
         //{ name: "theme", selector: { theme: {} } },
       ],
@@ -469,7 +469,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
           throw new Error("'other_option' is unexpected.");
         }
 		
-		if (config.colors == 'User defined') {
+		if (config.colors == 'Default') {
 			//config.plate_color.disabled = true;
 			var w = getSchIndex(sch, 'plate_color');
 			sch.schema[w].disabled = true;
@@ -483,6 +483,19 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			sch.schema[w].disabled = true;
 			w = getSchIndex(sch, 'digit_bg_color');
 			sch.schema[w].disabled = true;
+		} else {
+			var w = getSchIndex(sch, 'plate_color');
+			sch.schema[w].disabled = false;
+			w = getSchIndex(sch, 'decimal_plate_color');
+			sch.schema[w].disabled = false;
+			w = getSchIndex(sch, 'unit_plate_color');
+			sch.schema[w].disabled = false;
+			w = getSchIndex(sch, 'unit_color');
+			sch.schema[w].disabled = false;
+			w = getSchIndex(sch, 'digit_color');
+			sch.schema[w].disabled = false;
+			w = getSchIndex(sch, 'digit_bg_color');
+			sch.schema[w].disabled = false;
 		}
       },
     };
