@@ -368,11 +368,11 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			}
 
 				
-			if (this._config.plate_color != undefined && this._config.plate_color != && this._config.colors == 'User defined') {
+			if (this._config.plate_color != undefined && this._config.plate_color != '' && this._config.colors == 'User defined') {
 				this._elements.main_div.style.backgroundColor = this._config.plate_color;
 			}
 			
-			if (this._config.decimal_plate_color != undefined && this._config.decimal_plate_color != && this._config.colors == 'User defined') {
+			if (this._config.decimal_plate_color != undefined && this._config.decimal_plate_color != '' && this._config.colors == 'User defined') {
 				this._elements.redbg.style.backgroundColor = this._config.decimal_plate_color;
 			}
 			
