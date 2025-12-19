@@ -12,7 +12,7 @@ function isNumeric(n) {
 
 
 
-class LGUtilityCounterCard extends HTMLElement {
+class OldStyleUtilityMeterCard extends HTMLElement {
 
     // private properties
 
@@ -466,11 +466,11 @@ class LGUtilityCounterCard extends HTMLElement {
 
 }
 
-customElements.define("lg-utility-counter-card", LGUtilityCounterCard);
+customElements.define("old-style-utility-meter-card", OldStyleUtilityMeterCard);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-    type: "lg-utility-counter-card",
-    name: "LG Utility Counter Card",
-    description: "A graphical representation of utility counter" // optional
+    type: "old-style-utility-meter-card",
+    name: "Old Style Utility Meter Card",
+    description: "A graphical representation of old style utility meter"
 });
