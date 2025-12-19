@@ -368,19 +368,21 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			}
 
 				
-			/*if (this._config.plate_color != undefined) {
-				var plate_rgb = this._config.plate_color;	//array with 3 elements
-				var rgb_css = "rgb(" + plate_rgb[0] + "," + plate_rgb[1] + ","+ plate_rgb[2] + ")";
-				this._elements.main_div.style.backgroundColor = rgb_css;
-			}*/
+			if (this._config.plate_color != undefined && this._config.plate_color != && this._config.colors == 'User defined') {
+				this._elements.main_div.style.backgroundColor = this._config.plate_color;
+			}
+			
+			if (this._config.decimal_plate_color != undefined && this._config.decimal_plate_color != && this._config.colors == 'User defined') {
+				this._elements.redbg.style.backgroundColor = this._config.decimal_plate_color;
+			}
 			
 			if (this._config.font_url == undefined) {
 				unloadCSS("osumc-webfont");
 			} else {
 				if (this._config.font_url == 'Carlito') {
 					loadCSS("https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400&display=swap", "osumc-webfont");
-				} else if (this._config.font_url.slice(0,4) == 'http') {
-					loadCSS(this._config.font_url, "osumc-webfont");
+				//} else if (this._config.font_url.slice(0,4) == 'http') {
+				//	loadCSS(this._config.font_url, "osumc-webfont");
 				} else {
 					unloadCSS("osumc-webfont");
 				}
@@ -444,7 +446,6 @@ class OldStyleUtilityMeterCard extends HTMLElement {
       computeLabel: (schema) => {
         if (schema.name === "icon") return "Special Icon";
         return undefined;
-				  
       },
       computeHelper: (schema) => {
         switch (schema.name) {
@@ -471,6 +472,16 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 		if (config.colors == 'User defined') {
 			//config.plate_color.disabled = true;
 			var w = getSchIndex(sch, 'plate_color');
+			sch.schema[w].disabled = true;
+			w = getSchIndex(sch, 'decimal_plate_color');
+			sch.schema[w].disabled = true;
+			w = getSchIndex(sch, 'unit_plate_color');
+			sch.schema[w].disabled = true;
+			w = getSchIndex(sch, 'unit_color');
+			sch.schema[w].disabled = true;
+			w = getSchIndex(sch, 'digit_color');
+			sch.schema[w].disabled = true;
+			w = getSchIndex(sch, 'digit_bg_color');
 			sch.schema[w].disabled = true;
 		}
       },
