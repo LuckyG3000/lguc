@@ -425,6 +425,16 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				}
 			}
 			
+			
+			if (this._config.decimal_separator_color != undefined && this._config.decimal_separator_color != '' && this._config.colors == 'User defined') {
+				this._elements.dp.style.color = this._config.decimal_separator_color;
+			}
+			
+			if (this._config.icon_color != undefined && this._config.icon_color != '' && this._config.colors == 'User defined') {
+				this._elements.icon.style.color = this._config.icon_color;
+			}
+			
+			
             this._elements.error.classList.add("osumc-error--hidden");
         }
     }
