@@ -422,6 +422,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			}
 			this._elements.redbg.style.left = ((30 * digits_left) + 5) + "px";
 			this._elements.redbg.style.width = (30 * digits_right + markings_offset) + "px";
+
 			this._elements.greybg.style.left = ((30 * digits_left) + 5 + (30 * digits_right) + markings_offset) + "px";
 			
 			this._elements.markings.style.left = ((30 * total_digits) - 14) + "px";
@@ -446,6 +447,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				this._elements.dp.innerHTML = ",";
 			} else {
 				this._elements.dp.innerHTML = "";
+				this._elements.redbg.style.width = "0px";
 			}
 			this._elements.dp.style.left = ((30 * digits_left) - 1) + "px";
 
@@ -618,8 +620,17 @@ class OldStyleUtilityMeterCard extends HTMLElement {
           throw new Error("'other_option' is unexpected.");
         }
 		
+		if (config.whole_digit_number == '' || config.whole_digit_number == undefined) {
+			config.whole_digit_number = 0;
+		}
+		
+		if (config.decimal_digit_number == '' || config.decimal_digit_number == undefined) {
+			config.decimal_digit_number = 0;
+		}
+			
 		if (config.whole_digit_number + config.decimal_digit_number == 0) {
-          throw new Error("At least one digit must be shown");
+          config.whole_digit_number == 0;
+		  //throw new Error("At least one digit must be shown");
         }
 		
 		if (config.colors == 'Default') {
