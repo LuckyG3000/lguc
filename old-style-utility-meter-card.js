@@ -404,7 +404,9 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			} else {
 				if (this._config.font_url == 'Carlito') {
 					loadCSS("https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400&display=swap", "osumc-webfont");
-					this._elements.digit.style.fontFamily = "Carlito";
+					for (var d = 0; d < total_digits; d++) {
+						this._elements.digit[d].style.fontFamily = "Carlito";
+					}
 				//} else if (this._config.font_url.slice(0,4) == 'http') {
 				//	loadCSS(this._config.font_url, "osumc-webfont");
 				} else {
