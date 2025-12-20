@@ -385,12 +385,15 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			}
 			
 			if (this._config.digit_color != undefined && this._config.digit_color != '' && this._config.colors == 'User defined') {
-				//this._elements.digit.style.color = this._config.digit_color;
-				this._elements.digit.style.backgroundImage = "linear-gradient(rgba(64,64,64,1), " + this._config.digit_color + ", rgba(64,64,64,1))";
+				for (var d = 0; d < total_digits; d++) {
+					this._elements.digit[d].style.backgroundImage = "linear-gradient(rgba(64,64,64,1), " + this._config.digit_color + ", rgba(64,64,64,1))";
+				}
 			}
 			
 			if (this._config.digit_bg_color != undefined && this._config.digit_bg_color != '' && this._config.colors == 'User defined') {
-				this._elements.digit_window.style.background = this._config.digit_bg_color;
+				for (var d = 0; d < total_digits; d++) {
+					this._elements.digit_window[d].style.background = this._config.digit_bg_color;
+				}
 			}
 			
 			if (this._config.font_url == undefined) {
