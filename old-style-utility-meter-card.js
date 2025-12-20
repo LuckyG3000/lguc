@@ -218,33 +218,44 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				margin-top: 1px;
 			}
 
-			.osumc-line_cont > :nth-child(5) {
+			.osumc-line_cont > :nth-child(0) {
+				opacity: 0.05;
+				width: 4px;
+			}
+
+			.osumc-line_cont > :nth-child(1) {
+				opacity: 0.20;
+			}
+
+			.osumc-line_cont > :nth-child(2) {
+				opacity: 0.40;
+			}
+
+			.osumc-line_cont > :nth-child(3) {
+				opacity: 0.65;
+			}
+
+			.osumc-line_cont > :nth-child(4) {
+				opacity: 0.8;
 				width: 7px;
 				left: 10px;
 			}
 
-			.osumc-line_cont > :nth-child(0) {
-				opacity: 0.25;
-			}
-
-			.osumc-line_cont > :nth-child(1) {
-				opacity: 0.35;
-			}
-
-			.osumc-line_cont > :nth-child(2) {
-				opacity: 0.55;
-			}
-
-			.osumc-line_cont > :nth-child(3) {
-				opacity: 0.75;
-			}
-
-			.osumc-line_cont > :nth-child(4) {
-				opacity: 0.7;
-			}
-
 			.osumc-line_cont > :nth-child(5) {
-				opacity: 0.75;
+				opacity: 0.65;
+			}
+			
+			.osumc-line_cont > :nth-child(6) {
+				opacity: 0.4;
+			}
+			
+			.osumc-line_cont > :nth-child(7) {
+				opacity: 0.2;
+			}
+			
+			.osumc-line_cont > :nth-child(8) {
+				opacity: 0.05;
+				width: 4px;
 			}
 
 			#osumc-last-update {
