@@ -457,6 +457,11 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				this._elements.dp.innerHTML = "";
 			}
 			this._elements.dp.style.left = ((30 * digits_left) - 1) + "px";
+			if (digits_right == 0) {
+				this._elements.dp.style.display = "none";
+			} else {
+				this._elements.dp.style.display = "inline-block";
+			}
 			
 			//if this._elements.redbg.style.width = "0px";
 
@@ -629,14 +634,16 @@ class OldStyleUtilityMeterCard extends HTMLElement {
           throw new Error("'other_option' is unexpected.");
         }
 		
+		var w = getSchIndex(sch, 'decimal_separator');
 		if (config.decimal_digit_number == 0) {
-			var w = getSchIndex(sch, 'decimal_separator');
+			sch.schema[w].disabled = true;
+		} else {
 			sch.schema[w].disabled = true;
 		}
 	
+		var w = getSchIndex(sch, 'plate_color');
 		if (config.colors == 'Default') {
 			//config.plate_color.disabled = true;
-			var w = getSchIndex(sch, 'plate_color');
 			sch.schema[w].disabled = true;
 			w = getSchIndex(sch, 'decimal_plate_color');
 			sch.schema[w].disabled = true;
@@ -651,7 +658,6 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			w = getSchIndex(sch, 'decimal_separator_color');
 			sch.schema[w].disabled = true;
 		} else {
-			var w = getSchIndex(sch, 'plate_color');
 			sch.schema[w].disabled = false;
 			w = getSchIndex(sch, 'decimal_plate_color');
 			sch.schema[w].disabled = false;
