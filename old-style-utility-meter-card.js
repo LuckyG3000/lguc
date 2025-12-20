@@ -1,3 +1,12 @@
+/*************************************************************
+*                                                            *
+*               Old Style Utility Meter Card                 *
+*                      by LuckyG3000                         *
+* https://github.com/LuckyG3000/old-style-utility-meter-card *
+*           GNU GENERAL PUBLIC LICENSE version 3.0           *
+*                                                            *
+**************************************************************/
+
 function loadCSS(url, id) {
   const link = document.createElement("link");
   link.id = id;
@@ -91,13 +100,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
         }
     }
 
-	 /*doEditor() {
-        this._elements.editor = document.createElement("form");
-        this._elements.editor.innerHTML = `
-            <div class="row"><label class="label" for="header">Header:</label><input class="value" id="header"></input></div>
-            <div class="row"><label class="label" for="entity">Entity:</label><input class="value" id="entity"></input></div>
-        `;
-    }*/
+
 
     doStyle() {
         this._elements.style = document.createElement("style");
@@ -357,15 +360,15 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				r_str = "0";
 			}
 			
-			var digits_left = this._config.digits_number;
-			var digits_right = this._config.decimals_number;
+			var digits_left = this._config.whole_digit_number;
+			var digits_right = this._config.decimal_digit_number;
 			
-			if (digits_left == 0) {	//auto
+			if (digits_left == 99) {	//auto
 				digits_left = l_str.length;
 				if (digits_left > 10) {digits_left = 10;}
 			}
 
-			if (digits_right == 0) {	//auto
+			if (digits_right == 99) {	//auto
 				digits_right = r_str.length;
 				if (digits_right > 5) {
 					digits_right = 5;
@@ -437,10 +440,12 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				this._elements.greybg.style.display = "inline-block";
 			}
 
-			if  (this._config.decimal_separator == "Point") {
+			if (this._config.decimal_separator == "Point") {
 				this._elements.dp.innerHTML = ".";
-			} else {
+			} else if (this._config.decimal_separator == "Comma") {
 				this._elements.dp.innerHTML = ",";
+			} else {
+				this._elements.dp.innerHTML = "";
 			}
 			this._elements.dp.style.left = ((30 * digits_left) - 1) + "px";
 
@@ -518,6 +523,10 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				this._elements.icon.style.color = this._config.icon_color;
 			}
 			
+			if (this._config.decimal_separator_color != undefined && this._config.decimal_separator_color != '' && this._config.colors == 'User defined') {
+				this._elements.dp.style.color = this._config.decimal_separator_color;
+			}
+			
 			if (this._config.markings) {
 				this._elements.markings.style.display = "block";
 			} else {
@@ -551,9 +560,9 @@ class OldStyleUtilityMeterCard extends HTMLElement {
       schema: [
         { name: "entity", required: true, selector: { entity: {} } },
         { name: "name", selector: { text: {} } },
-		{ name: "digits_number", selector: { number: { min: 0, max: 10, step: 1, mode: "slider" } } },
-		{ name: "decimals_number", selector: { number: { min: 0, max: 5, step: 1, mode: "slider" } } },
-		{ name: "decimal_separator", selector: { select: { mode: "list", options: ["Point", "Comma"] } } },
+		{ name: "whole_digit_number", selector: { number: { min: 0, max: 10, step: 1, mode: "slider" } } },
+		{ name: "decimal_digit_number", selector: { number: { min: 0, max: 5, step: 1, mode: "slider" } } },
+		{ name: "decimal_separator", selector: { select: { mode: "list", options: ["Point", "Comma", "None"] } } },
 		{ name: "markings", selector: { boolean: {} } },
 		{ name: "random_shift", selector: { boolean: {} } },
 		{ name: "offset", selector: { number: { step: "any", mode: "box" } } },
@@ -591,20 +600,26 @@ class OldStyleUtilityMeterCard extends HTMLElement {
             return "Choose entity to show on meter";
           case "unit":
             return "The unit of measurement for this card. If not filled, unit is taken from selected entity. (0 = hide unit)";
-		  case "digits_number":
-            return "The number of digits to the left of decimal point. (0 - 10, 0 = auto)";
-		  case "decimals_number":
-            return "The number of digits to the right of decimal point. (0 - 5, 0 = auto)";
+		  case "whole_digit_number":
+            return "The number of digits to the left of decimal point. (0 - 10, 99 = auto)";
+		  case "decimal_digit_number":
+            return "The number of digits to the right of decimal point. (0 - 5, 99 = auto)";
 		  case "offset":
             return "This value will be added to entity's value. If negative, it will be subtracted.";
 		  case "random_shift":
             return "Shift digits vertically randomly by ±1px, to get a more realistic look.";
+		  case "markings":
+            return "Show minor markings on last digit.";
         }
         return undefined;
       },
       assertConfig: (config) => {
         if (config.other_option) {
           throw new Error("'other_option' is unexpected.");
+        }
+		
+		if (config.whole_digit_number + config.decimal_digit_number == 0) {
+          throw new Error("At least one digit must be shown");
         }
 		
 		if (config.colors == 'Default') {
@@ -621,6 +636,8 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			sch.schema[w].disabled = true;
 			w = getSchIndex(sch, 'digit_bg_color');
 			sch.schema[w].disabled = true;
+			w = getSchIndex(sch, 'decimal_separator_color');
+			sch.schema[w].disabled = true;
 		} else {
 			var w = getSchIndex(sch, 'plate_color');
 			sch.schema[w].disabled = false;
@@ -633,6 +650,8 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			w = getSchIndex(sch, 'digit_color');
 			sch.schema[w].disabled = false;
 			w = getSchIndex(sch, 'digit_bg_color');
+			sch.schema[w].disabled = false;
+			w = getSchIndex(sch, 'decimal_separator_color');
 			sch.schema[w].disabled = false;
 		}
       },
