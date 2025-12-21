@@ -278,6 +278,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				<div class="osumc-icon-div">
 					<ha-icon icon="mdi:flash" id="osumc-icon"></ha-icon>
 				</div>
+				<div class="osumc-name"></div>
 				<div class="osumc-main-div">
 					<div class="osumc-red-bg">
 					</div><div class="osumc-grey-bg"></div>`;
@@ -315,6 +316,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
         const card = this._elements.card;
         this._elements.error = card.querySelector(".osumc-error")
 
+		this._elements.name = card.querySelector(".osumc-name");
 		this._elements.main_div = card.querySelector(".osumc-main-div");
 		this._elements.digit_window = card.querySelectorAll(".osumc-digit-window");
 		this._elements.digit = card.querySelectorAll(".osumc-digit-text");
@@ -435,6 +437,20 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			
 			this._elements.markings.style.left = ((30 * total_digits) - 14) + "px";
 			
+			
+			if (this._config.show_name) {
+				this._elements.name.style.display = "block";
+				if (this._config.name == '' || this._config.name == undefined) {
+					this._elements.name.innerHTML = this.getName();
+				} else {
+					this._elements.name.innerHTML = this._config.name;
+				}
+				if (this._config.name_color != undefined && this._config.name_color != '' && this._config.colors == 'User defined') {
+					this._elements.name.style.color = this._config.name_color;
+				}
+			} else {
+				this._elements.name.style.display = "none";
+			}
 			
 			
 			var unitOfMeasurement = this.getState().attributes.unit_of_measurement;
@@ -580,6 +596,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
       schema: [
         { name: "entity", required: true, selector: { entity: {} } },
         { name: "name", selector: { text: {} } },
+		{ name: "show_name", selector: { boolean: {} } },
 		{ name: "whole_digit_number", selector: { number: { min: 0, max: 10, step: 1, mode: "slider" } } },
 		{ name: "decimal_digit_number", selector: { number: { min: 0, max: 5, step: 1, mode: "slider" } } },
 		{ name: "decimal_separator", selector: { select: { mode: "list", options: ["Point", "Comma", "None"] } } },
@@ -597,6 +614,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
         },
         { name: "unit", selector: { text: {} } },
 		{ name: "colors", selector: { select: { mode: "list", options: ["Default", "User defined"] } } },
+		{ name: "name_color", selector: { text: {} } },
 		{ name: "plate_color", disabled: false, selector: { text: {} } },
 		{ name: "decimal_plate_color", selector: { text: {} } },
 		{ name: "unit_plate_color", selector: { text: {} } },
