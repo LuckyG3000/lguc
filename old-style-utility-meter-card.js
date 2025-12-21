@@ -275,10 +275,10 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			<div class="card-content">
 				<p class="osumc-error osumc-error--hidden">
 				<br><br>
+				<div class="osumc-name"></div>
 				<div class="osumc-icon-div">
 					<ha-icon icon="mdi:flash" id="osumc-icon"></ha-icon>
 				</div>
-				<div class="osumc-name"></div>
 				<div class="osumc-main-div">
 					<div class="osumc-red-bg">
 					</div><div class="osumc-grey-bg"></div>`;
