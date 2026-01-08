@@ -826,6 +826,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 		if (config.show_wheel == false) {
 			w = getSchIndex(sch, 'speed_control_mode');
 			sch.schema[w].disabled = true;
+			sch.schema[w].hidden = true;
 			w = getSchIndex(sch, 'wheel_speed');
 			sch.schema[w].disabled = true;
 			w = getSchIndex(sch, 'power_entity');
