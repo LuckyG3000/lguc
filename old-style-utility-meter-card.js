@@ -575,10 +575,10 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				dig_val = cntr_str.substring(d, d + 1);
 				this._elements.digit[d].innerHTML = dig_val;
 				this._elements.digit_window[d].style.display = "inline-block";
-				if (random_pos) {
-					this._elements.digit[d].style.top = Math.round(Math.random() * 2 - 1) + "px";
+				if (random_pos && this._config.random_shift !== undefined && this._config.random_shift > 0) {
+					this._elements.digit[d].style.top = Math.round(Math.random() * 2 * this._config.random_shift - this._config.random_shift) + "px";
 				}
-				if (!this._config.random_shift) {
+				if (this._config.random_shift == '' || this._config.random_shift == undefined || this._config.random_shift == 0) {
 					this._elements.digit[d].style.top = 0;
 				}
 				
@@ -822,7 +822,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			{ name: "decimal_digit_number", selector: { number: { min: 0, max: 5, step: 1, mode: "slider" } } },
 			{ name: "decimal_separator", selector: { select: { mode: "list", options: ["Point", "Comma", "None"] } } },
 			{ name: "markings", selector: { boolean: {} } },
-			{ name: "random_shift", selector: { boolean: {} } },
+			{ name: "random_shift", selector: { number: { min: 0, max: 2, step: 1, mode: "slider" } } },
 			{ name: "offset", selector: { number: { step: "any", mode: "box" } } },
 			{
 				name: "icon",
@@ -884,7 +884,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				case "offset":
 					return "This value will be added to entity's value. If negative, it will be subtracted.";
 				case "random_shift":
-					return "Shift digits vertically randomly by ±1px, to get a more realistic look.";
+					return "Shift digits vertically randomly by ±1 or ±2px, to get a more realistic look. Set 0 to disable shift.";
 				case "markings":
 					return "Show minor markings on last digit.";
 				case "plate_color":
@@ -937,10 +937,14 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				w = getSchIndex(sch, 'speed_control_mode');
 				sch.schema[w].disabled = true;
 				sch.schema[w].visible = false;
+				w = getSchIndex(sch, 'marker_width');
+				sch.schema[w].disabled = true;
 				w = getSchIndex(sch, 'wheel_speed');
 				sch.schema[w].disabled = true;
 				sch.schema[w].hide = true;
 				w = getSchIndex(sch, 'power_entity');
+				sch.schema[w].disabled = true;
+				w = getSchIndex(sch, 'max_power_value');
 				sch.schema[w].disabled = true;
 				w = getSchIndex(sch, 'min_rot_time');
 				sch.schema[w].disabled = true;
@@ -949,12 +953,17 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			} else {
 				w = getSchIndex(sch, 'speed_control_mode');
 				sch.schema[w].disabled = false;
+				w = getSchIndex(sch, 'marker_width');
+				sch.schema[w].disabled = false;
+				
 				if (config.speed_control_mode == 'Fixed') {
 					w = getSchIndex(sch, 'wheel_speed');
 					sch.schema[w].disabled = false;
 					sch.schema[w].required = true;
 					w = getSchIndex(sch, 'power_entity');
 					sch.schema[w].required = false;
+					sch.schema[w].disabled = true;
+					w = getSchIndex(sch, 'max_power_value');
 					sch.schema[w].disabled = true;
 					w = getSchIndex(sch, 'min_rot_time');
 					sch.schema[w].required = false;
@@ -969,6 +978,8 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 					w = getSchIndex(sch, 'power_entity');
 					sch.schema[w].disabled = false;
 					sch.schema[w].required = true;
+					w = getSchIndex(sch, 'max_power_value');
+					sch.schema[w].disabled = false;
 					w = getSchIndex(sch, 'min_rot_time');
 					sch.schema[w].disabled = false;
 					sch.schema[w].required = true;
