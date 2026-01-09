@@ -754,13 +754,16 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				} else {
 					if (this._config.power_entity && typeof this._config.power_entity === "string") {
 						var power_val = parseFloat(this._hass.states[this._config.power_entity]);
+						console.log("Power val: " + power_val);
 						if (power_val == 0) {
 							this._elements.wheel_marker.style.animationDuration = 0;
 						} else {
 							var calc_wheel_speed = 20.1 - ((power_val / this._config.speed_range_high) * 20.0);
-							this._elements.wheel_marker.style.animationDuration = calc_wheel_speed;
+							this._elements.wheel_marker.style.animationDuration = calc_wheel_speed + "s";
+							console.log("Speed: " + calc_wheel_speed);
 						}
 					} else {
+						console.log("Invalid power entity");
 						this._elements.wheel_marker.style.removeProperty('animation-duration');
 					}
 				}
