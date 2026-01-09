@@ -389,16 +389,16 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			}
 
 			@keyframes osumc-wheel-animation {
-				0% {left: -2%; width: calc(var(--marker-width) * (10/30)); margin-left: -5px; opacity: 0.1}
-				7% {left: 7%; width: calc(var(--marker-width) * (22/30)); margin-left: -10px; opacity: 0.4}
-				13% {left: 20%; width: calc(var(--marker-width) * (27/30)); margin-left: -13px;}
-				19% {left: 36%; width: calc(var(--marker-width) * (29/30)); margin-left: -14px;}
-				25% {left: 50%; width: var(--marker-width); margin-left: -15px; opacity: 1}
-				31% {left: 64%; width: calc(var(--marker-width) * (29/30)); margin-left: -14px;}
-				37% {left: 80%; width: calc(var(--marker-width) * (27/30)); margin-left: -13px;}
-				43% {left: 93%; width: calc(var(--marker-width) * (22/30)); margin-left: -11px; opacity: 0.4}
-				50% {left: 102%; width: calc(var(--marker-width) * (12/30)); margin-left: -6px; opacity: 0.1}
-				51% {opacity: 0}
+				0% {left: -2%; width: calc(var(--marker-width) * (10/30)); margin-left: calc(var(--marker-width) * (-5/30)); opacity: 0.3;}
+				7% {left: 7%; width: calc(var(--marker-width) * (22/30)); margin-left: calc(var(--marker-width) * (-10/30)); opacity: 0.6;}
+				13% {left: 20%; width: calc(var(--marker-width) * (27/30)); margin-left: calc(var(--marker-width) * (-13/30));}
+				19% {left: 36%; width: calc(var(--marker-width) * (29/30)); margin-left: calc(var(--marker-width) * (-14/30));}
+				25% {left: 50%; width: var(--marker-width); margin-left: calc(var(--marker-width) * (-15/30)); opacity: 1}
+				31% {left: 64%; width: calc(var(--marker-width) * (29/30)); margin-left: calc(var(--marker-width) * (-14/30));}
+				37% {left: 80%; width: calc(var(--marker-width) * (27/30)); margin-left: calc(var(--marker-width) * (-13/30));}
+				43% {left: 93%; width: calc(var(--marker-width) * (22/30)); margin-left: calc(var(--marker-width) * (-11/30)); opacity: 0.6;}
+				50% {left: 102%; width: calc(var(--marker-width) * (12/30)); margin-left: calc(var(--marker-width) * (-6/30)); opacity: 0.3;}
+				51% {opacity: 0;}
 				100% {opacity: 0;}
 			}
 			
@@ -760,7 +760,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 					r.style.setProperty('--marker-width', this._config.marker_width + "px");
 				}
 
-				
+
 				if (this._config.speed_control_mode == 'Fixed') {
 					if (!isNaN(Number(this._config.wheel_speed))) {
 						this._elements.wheel_marker.style.animationDuration = this._config.wheel_speed + "s";
@@ -840,9 +840,9 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			{ name: "speed_control_mode", selector: { select: { mode: "list", options: ["Fixed", "Power"] } } },
 			{ name: "wheel_speed", selector: { number: { min: 0.1, max: 20, step: 0.1, mode: "slider" } } },
 			{ name: "power_entity", selector: { entity: {} } },
-			{ name: "max_power_value", selector: { number: { mode: "box" } } },
-			{ name: "min_rot_time", selector: { number: { min: 0.1, mode: "box" } } },
-			{ name: "max_rot_time", selector: { number: { min: 0.1, mode: "box" } } },
+			{ name: "max_power_value", selector: { number: { step: any, mode: "box" } } },
+			{ name: "min_rot_time", selector: { number: { min: 0.1, step: 0.1, mode: "box" } } },
+			{ name: "max_rot_time", selector: { number: { min: 0.1, step: 0.1, mode: "box" } } },
 			
 			{ name: "plate_color", selector: { text: {} } },
 			{ name: "name_color", selector: { text: {} } },
