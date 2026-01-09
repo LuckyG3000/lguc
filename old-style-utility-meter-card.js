@@ -744,7 +744,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				
 				if (this._config.speed_control_mode == 'Fixed') {
 					if (!isNaN(Number(this._config.wheel_speed))) {
-						this._elements.wheel_marker.style.animation-duration = this._config.wheel_speed;
+						this._elements.wheel_marker.style.animationDuration = this._config.wheel_speed;
 					} else {
 						this._elements.wheel_marker.style.removeProperty('animation-duration');
 					}
@@ -752,16 +752,17 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 					if (this._config.power_entity && typeof this._config.power_entity === "string") {
 						var power_val = parseFloat(this._hass.states[this._config.power_entity]);
 						if (power_val == 0) {
-							this._elements.wheel_marker.style.animation-duration = 0;
+							this._elements.wheel_marker.style.animationDuration = 0;
 						} else {
 							var calc_wheel_speed = 20.1 - ((power_val / this._config.speed_range_high) * 20.0);
-							this._elements.wheel_marker.style.animation-duration = calc_wheel_speed;
+							this._elements.wheel_marker.style.animationDuration = calc_wheel_speed;
 						}
 					} else {
 						this._elements.wheel_marker.style.removeProperty('animation-duration');
 					}
 				}
 			} else {
+				this._elements.wheel_marker.style.animationDuration = 0;
 				this._elements.wheel_window.style.display = "none";
 			}
 			
