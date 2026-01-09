@@ -149,6 +149,8 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				width: auto;
 				white-space: nowrap;
 				position: relative;
+				font-size: 0;
+				overflow: hidden;
 			}
 
 			.osumc-icon-div {
@@ -164,19 +166,21 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				position: relative;
 				width: 18px;
 				height: 26px;
-				/*top: 6px;*/
+				top: 6px;
 				margin-left: 10px;
 				display: inline-block;
 				color: white;
 				border: 1px solid rgb(32,32,32);
 				text-align: center;
-				vertical-align: middle;
+				vertical-align: top;
 				line-height: 24px;
 				border-radius: 6px;
 				box-shadow: -1px -1px 1px 0px rgba(255, 255, 255, 0.3) inset;
 				background: rgb(8,8,8);
 				color: linear-gradient(red, yellow, green);
 				filter: blur(0.25px);
+				overflow: hidden;
+				z-index: 1;
 			}
 
 			.osumc-digit-text {
@@ -235,6 +239,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 				position: absolute;
 				top: 5px;
 				width: 100%;
+				z-index: 2;
 			}
 
 			.osumc-line_cont > .osumc-line {
@@ -413,20 +418,20 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 						</span>`;
 			}
 			html_content += `
-						<div class="osumc-red-bg"></div>
-						<div class="osumc-grey-bg"></div>
-						<div id="osumc-decimal-point"></div>
-						<div class="osumc-line_cont">
-							<div class="osumc-line"></div>
-							<div class="osumc-line"></div>
-							<div class="osumc-line"></div>
-							<div class="osumc-line"></div>
-							<div class="osumc-line"></div>
-							<div class="osumc-line"></div>
-							<div class="osumc-line"></div>
-							<div class="osumc-line"></div>
-							<div class="osumc-line"></div>
-						</div>
+					</div>
+					<div class="osumc-red-bg"></div>
+					<div class="osumc-grey-bg"></div>
+					<div id="osumc-decimal-point"></div>
+					<div class="osumc-line_cont">
+						<div class="osumc-line"></div>
+						<div class="osumc-line"></div>
+						<div class="osumc-line"></div>
+						<div class="osumc-line"></div>
+						<div class="osumc-line"></div>
+						<div class="osumc-line"></div>
+						<div class="osumc-line"></div>
+						<div class="osumc-line"></div>
+						<div class="osumc-line"></div>
 					</div>
 				</div>
 				<div class="osumc-wheel-window">
