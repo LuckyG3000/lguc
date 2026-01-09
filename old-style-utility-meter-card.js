@@ -143,7 +143,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			}
 			
 					
-			.osumc-main-div {
+			.osumc-integer-div {
 				display: inline-block;
 				vertical-align: middle;
 				background-color: rgb(16, 16, 16);
@@ -418,7 +418,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 					<div class="osumc-icon-div">
 						<ha-icon icon="mdi:flash" id="osumc-icon"></ha-icon>
 					</div>
-					<div class="osumc-main-div">
+					<div class="osumc-integer-div">
 						`;
 			for (var d = 0; d < 15; d++) {
 				html_content += `<span class="osumc-digit-window">
@@ -466,10 +466,12 @@ class OldStyleUtilityMeterCard extends HTMLElement {
         const card = this._elements.card;
         this._elements.error = card.querySelector(".osumc-error")
 
+		this._elements.card_content = card.querySelector(".card-content")
+
 		this._elements.name = card.querySelector(".osumc-name");
 		
 		this._elements.counter_div = card.querySelector(".osumc-counter-div");
-		this._elements.main_div = card.querySelector(".osumc-main-div");
+		this._elements.integer_div = card.querySelector(".osumc-integer-div");
 		this._elements.digit_window = card.querySelectorAll(".osumc-digit-window");
 		this._elements.digit = card.querySelectorAll(".osumc-digit-text");
 		this._elements.redbg = card.querySelector(".osumc-red-bg");
@@ -537,9 +539,9 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			var total_digits = digits_left + digits_right;
 			
 			if (total_digits > 0) {
-				this._elements.main_div.style.display = "inline-block";
+				this._elements.integer_div.style.display = "inline-block";
 			} else {
-				this._elements.main_div.style.display = "none";
+				this._elements.integer_div.style.display = "none";
 			}
 			
 			l_str = l_str.padStart(digits_left, '0');	//add leading zeros
@@ -591,7 +593,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			//this._elements.redbg.style.left = ((30 * digits_left) + 5) + "px";
 			this._elements.redbg.style.width = (30 * digits_right + (markings_offset * (digits_right > 0))) + "px";
 			this._elements.redbg.style.left = ((-30 * digits_right) + 5 - markings_offset) + "px"; //"-61px";
-			this._elements.greybg.style.left = (((-30 * digits_right) + 5 - markings_offset) + (30 * digits_right + (markings_offset * (digits_right > 0)))) + "px";
+			this._elements.greybg.style.left = this._elements.redbg.style.left;
 			//this._elements.greybg.style.left = ((30 * digits_left) + 5 + (30 * digits_right) + markings_offset) + "px";
 			
 			this._elements.markings.style.left = ((30 * total_digits) - 13) + "px";
@@ -648,8 +650,8 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			}
 
 				
-			if (this._config.plate_color != undefined && this._config.plate_color != '' && this._config.colors == 'User defined') {
-				this._elements.main_div.style.backgroundColor = this._config.plate_color;
+			if (this._config.integer_plate_color != undefined && this._config.integer_plate_color != '' && this._config.colors == 'User defined') {
+				this._elements.integer_div.style.backgroundColor = this._config.integer_plate_color;
 			}
 			
 			if (this._config.decimal_plate_color != undefined && this._config.decimal_plate_color != '' && this._config.colors == 'User defined') {
@@ -731,9 +733,23 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			if (this._config.show_wheel) {
 				this._elements.wheel_window.style.display = "block";
 				if (this._config.speed_control_mode == 'Fixed') {
-					//this._elements.wheel_marker.style.animation-duration = this._config.wheel_speed;
+					if (!isNaN(Number(this._config.wheel_speed))) {
+						this._elements.wheel_marker.style.animation-duration = this._config.wheel_speed;
+					} else {
+						this._elements.wheel_marker.style.removeProperty('animation-duration');
+					}
 				} else {
-					
+					if (this._config.power_entity && typeof this._config.power_entity === "string") {
+						var power_val = parseFloat(this._hass.states[this._config.power_entity]);
+						if (power_val == 0) {
+							this._elements.wheel_marker.style.animation-duration = 0;
+						} else {
+							var calc_wheel_speed = 20.1 - ((power_val / this._config.speed_range_high) * 20.0);
+							this._elements.wheel_marker.style.animation-duration = calc_wheel_speed;
+						}
+					} else {
+						this._elements.wheel_marker.style.removeProperty('animation-duration');
+					}
 				}
 			} else {
 				this._elements.wheel_window.style.display = "none";
@@ -794,8 +810,9 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 		{ name: "speed_range_high", selector: { number: { mode: "box" } } },
 		
 		{ name: "colors", selector: { select: { mode: "list", options: ["Default", "User defined"] } } },
+		{ name: "plate_color", selector: { text: {} } },
 		{ name: "name_color", selector: { text: {} } },
-		{ name: "plate_color", disabled: false, selector: { text: {} } },
+		{ name: "integer_plate_color", disabled: false, selector: { text: {} } },
 		{ name: "decimal_plate_color", selector: { text: {} } },
 		{ name: "unit_plate_color", selector: { text: {} } },
 		{ name: "unit_color", selector: { text: {} } },
@@ -806,6 +823,8 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 		{ name: "icon_color", selector: { text: {} } },
 		{ name: "font", selector: { select: { mode: "dropdown", options: ["Default", "Carlito"] } } },
 		{ name: "font_size", selector: { text: {} } },
+		{ name: "wheel_color", selector: { text: {} } },
+		{ name: "wheel_marker_color", selector: { text: {} } },
 		//{ name: "plate_color", disabled: true, selector: { color_rgb: {} } },
         //{ name: "theme", selector: { theme: {} } },
       ],
@@ -918,9 +937,8 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			}
 		}
 		
-		w = getSchIndex(sch, 'plate_color');
+		w = getSchIndex(sch, 'integer_plate_color');
 		if (config.colors == 'Default') {
-			//config.plate_color.disabled = true;
 			sch.schema[w].disabled = true;
 			w = getSchIndex(sch, 'decimal_plate_color');
 			sch.schema[w].disabled = true;
@@ -933,6 +951,10 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			w = getSchIndex(sch, 'digit_bg_color');
 			sch.schema[w].disabled = true;
 			w = getSchIndex(sch, 'decimal_separator_color');
+			sch.schema[w].disabled = true;
+			w = getSchIndex(sch, 'wheel_color');
+			sch.schema[w].disabled = true;
+			w = getSchIndex(sch, 'wheel_marker_color');
 			sch.schema[w].disabled = true;
 		} else {
 			sch.schema[w].disabled = false;
@@ -947,6 +969,10 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			w = getSchIndex(sch, 'digit_bg_color');
 			sch.schema[w].disabled = false;
 			w = getSchIndex(sch, 'decimal_separator_color');
+			sch.schema[w].disabled = false;
+			w = getSchIndex(sch, 'wheel_color');
+			sch.schema[w].disabled = false;
+			w = getSchIndex(sch, 'wheel_marker_color');
 			sch.schema[w].disabled = false;
 		}
       },
