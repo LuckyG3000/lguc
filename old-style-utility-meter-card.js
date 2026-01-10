@@ -494,7 +494,7 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 		this._elements.redbg = card.querySelector(".osumc-red-bg");
 		this._elements.greybg = card.querySelector(".osumc-grey-bg");
 		this._elements.dp = card.querySelector("#osumc-decimal-point");
-		this._elements.icon_div = card.querySelector("#osumc-icon-div");
+		this._elements.icon_div = card.querySelector(".osumc-icon-div");
 		this._elements.icon = card.querySelector("#osumc-icon");
 		this._elements.markings = card.querySelector(".osumc-line_cont");
 
