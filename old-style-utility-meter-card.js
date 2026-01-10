@@ -644,7 +644,6 @@ class OldStyleUtilityMeterCard extends HTMLElement {
 			
 			//counter_div.width = icon_div.width + integer_div.width + redbg.width + markings_offset + greybg.width
 			var greybg_w = element.getBoundingClientRect().width;
-			if 
 			
 			this._elements.counter_div.style.width = icon_w + (30 * digits_left) + (30 * digits_right + (markings_offset * (digits_right > 0))) + greybg_w + "px";
 			
