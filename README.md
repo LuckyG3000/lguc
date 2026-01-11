@@ -112,7 +112,7 @@ The formula for calculating the rotation time from these values is the following
 
 ![Example 6](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/example-4.png?raw=true)
 
-![Example 7](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/screenshot?raw=true)
+![Example 7](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/screenshot.png?raw=true)
 
 # Installation
 
