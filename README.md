@@ -13,8 +13,8 @@ This is my first custom card project.
 # Configuration
 
 Colors of almost all elements can be set to custom values.<br/>
-Font of digits can be either default (used by your HA dashboard) or Carlito, which is more resembling the font used on meter boxes.\
-This card supports visual configuration editor.\
+Font of digits can be either default (used by your HA dashboard) or Carlito, which is more resembling the font used on meter boxes.<br/>
+This card supports visual configuration editor.<br/>
 
 ![Visual Configuration Editor](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/visual_config.png?raw=true)
 
@@ -51,7 +51,7 @@ max_power_value: 10
 max_rot_time: 20
 min_rot_time: 1
 unit: kWh
-plate_color: "\#181818"
+plate_color: "#1B1B1B"
 name_color: "#f00"
 integer_plate_color: "#000"
 decimal_plate_color: red
@@ -67,7 +67,7 @@ icon_background_color: black
 
 ## About configuration options
 
-Most of these options are pretty straightforward a don't need any explanation. You can find some hints in the visual configuration editor for most of the options.\
+Most of these options are pretty straightforward a don't need any explanation. You can find some hints in the visual configuration editor for most of the options.<br/>
 **Colors:** all color options (those ending with _color) must be entered in a CSS compatible syntax, e.g, ```"red", "#02DD7F", "#fff", "rgb(120, 120, 120)", "rgba(64, 64, 64, 0.75)"```...
 
 **Spinning wheel:** The rotating speed of the wheel can be either constant or dynamic based on value of optional entity (e.g. Power, Current, Flow etc.).
@@ -112,7 +112,7 @@ The formula for calculating the rotation time from these values is the following
 
 ![Example 6](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/example-4.png?raw=true)
 
-![Example 7](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/wheel_animation.webp?raw=true)
+![Example 7](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/screenshot?raw=true)
 
 # Installation
 
