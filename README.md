@@ -3,7 +3,7 @@
 
 Old Style Utility Meter Card for Home Assistant
 
-Customizable Utility Meter Card based on old style (non digital) utility meter box with rotating digits and an animated spinning wheel :new:.\
+Customizable Utility Meter Card based on old style (non digital) utility meter box with rotating digits and an animated spinning wheel :new:.<br/>
 This picture does a better job than describing it with words:
 
 ![Old Style Utility Meter Card](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/screenshot.png?raw=true)
@@ -12,7 +12,7 @@ This is my first custom card project.
 
 # Configuration
 
-Colors of almost all elements can be set to custom values.\
+Colors of almost all elements can be set to custom values.<br/>
 Font of digits can be either default (used by your HA dashboard) or Carlito, which is more resembling the font used on meter boxes.\
 This card supports visual configuration editor.\
 
@@ -51,7 +51,7 @@ max_power_value: 10
 max_rot_time: 20
 min_rot_time: 1
 unit: kWh
-plate_color: "#181818"
+plate_color: "\#181818"
 name_color: "#f00"
 integer_plate_color: "#000"
 decimal_plate_color: red
