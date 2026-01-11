@@ -16,12 +16,12 @@ Colors of almost all elements can be set to custom values.\
 Font of digits can be either default (used by your HA dashboard) or Carlito, which is more resembling the font used on meter boxes.\
 This card supports visual configuration editor.\
 
-![Visual Configuration Editor](imgs/visual_config.png?raw=true)
+![Visual Configuration Editor](https://github.com/LuckyG3000/old-style-utility-meter-card/blob/main/imgs/visual_config.png?raw=true)
 
 ## Example YAML Configuration
 These are all options, that can be configured. Only the entity is mandatory, all others are optional.
 
-```YAML
+```
 type: custom:old-style-utility-meter-card
 entity: sensor.kws_306wf_energy
 grid_options:
@@ -73,12 +73,12 @@ Most of these options are pretty straightforward a don't need any explanation. Y
 **Spinning wheel:** The rotating speed of the wheel can be either constant or dynamic based on value of optional entity (e.g. Power, Current, Flow etc.).
 
 Select the mode for speed config:
-```YAML
+```
 speed_control_mode: fixed | power
 ```
 
 In **```fixed```** mode you set only the speed:
-```YAML
+```
 wheel_speed: 2
 ```
 
