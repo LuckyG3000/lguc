@@ -73,7 +73,9 @@ Most of these options are pretty straightforward a don't need any explanation. Y
 **Spinning wheel:** The rotating speed of the wheel can be either constant or dynamic based on value of optional entity (e.g. Power, Current, Flow etc.).
 
 Select the mode for speed config:\
-```YAMLspeed_control_mode: fixed | power```
+```YAML
+speed_control_mode: fixed | power
+```
 
 In ```fixed``` mode you set only the speed:\
 ```wheel_speed: 2```\
