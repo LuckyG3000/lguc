@@ -1207,6 +1207,6 @@ customElements.define("old-style-utility-meter-card", OldStyleUtilityMeterCard);
 window.customCards = window.customCards || [];
 window.customCards.push({
     type: "old-style-utility-meter-card",
-    name: "Old Style Utility Meter Card DEV",
+    name: "Old Style Utility Meter Card",
     description: "A graphical representation of old style utility meter"
 });
